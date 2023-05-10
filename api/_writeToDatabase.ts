@@ -3,9 +3,10 @@ const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export async function processRecords(jsonData) {
+export async function processRecords(jsonString) {
   try {
-    const { data: records, error } = jsonData;
+    
+    const { data: records, error } = JSON.parse(jsonString);
 
     if (error) {
       throw new Error(`Error reading JSON data: ${error}`);
