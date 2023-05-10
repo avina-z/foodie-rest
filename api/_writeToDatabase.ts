@@ -5,15 +5,13 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function processRecords(jsonString) {
   try {
-    console.log("jsonString: " + jsonString);
-    const { data: records, error } = JSON.parse(jsonString);
-    if (error) {
-      throw new Error(`Error reading JSON data: ${error}`);
-    }
-    console.log("records: " + records);
-    for (const record of records) {
+//    const { data: records, error } = jsonString;
+//    if (error) {
+//      throw new Error(`Error reading JSON data: ${error}`);
+ //   }
+    for (const record of jsonString) {
       const { idmeserointerno, operacion, ...data } = record;
-
+      const cdcData = data;
       // Define the table name where you want to perform the operation
       const tableName = 'meseros_test_foodie';
 
@@ -29,34 +27,37 @@ export async function processRecords(jsonString) {
             throw new Error(`Error deleting record: ${error}`);
           }
 
-          console.log(`Record deleted successfully: ${JSON.stringify(data)}`);
+          console.log(`Record deleted successfully: ${JSON.stringify(cdcData)}`);
           break;
 
         case 'I':
           // Insert the data into the Supabase database
           const { data: insertData, error: insertError } = await supabase
             .from(tableName)
-            .insert({ ...data, idmeserointerno });
+            .insert({ ...cdcData, idmeserointerno, operacion});
 
+            console.log("JSON.insertData");
+            console.log(cdcData);
           if (insertError) {
+            console.log(insertError);
             throw new Error(`Error inserting record: ${insertError}`);
           }
 
-          console.log(`Record inserted successfully: ${JSON.stringify(insertData)}`);
+          console.log(`Record inserted successfully: ${JSON.stringify(cdcData)}`);
           break;
 
         case 'U':
           // Update the record in the Supabase database using the ID
           const { data: updateData, error: updateError } = await supabase
             .from(tableName)
-            .update(data)
+            .update(...cdcData, operacion)
             .eq('idmeserointerno', idmeserointerno);
 
           if (updateError) {
             throw new Error(`Error updating record: ${updateError}`);
           }
 
-          console.log(`Record updated successfully: ${JSON.stringify(updateData)}`);
+          console.log(`Record updated successfully: ${JSON.stringify(cdcData)}`);
           break;
 
         default:
