@@ -1,7 +1,8 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default (req: VercelRequest, res: VercelResponse) => {
-  console.log(req); 
+  const { body } = req;
+  console.log(body); 
   if (req.method === 'POST') {
     return res.json({ message: "POST: Hello World!" });
   } else {
