@@ -16,7 +16,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     const buf = await buffer(req);
     const body = buf.toString('utf8');
     //console.log(body);
-    processRecords(body);
+    let result = await processRecords(body);
     return res.json({ message: "POST: Success" });
   } else {
     return res.json({ message: "GET method not supported!" });
