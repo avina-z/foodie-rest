@@ -3,7 +3,7 @@ const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function _writeToDatabase(jsonData) {
+async function processRecords(jsonData) {
   try {
     const { data: records, error } = jsonData;
 
@@ -69,5 +69,5 @@ async function _writeToDatabase(jsonData) {
   }
 }
 
-module.exports = { _writeToDatabase };
+module.exports = { processRecords };
 

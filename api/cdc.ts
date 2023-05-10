@@ -6,7 +6,7 @@ export default (req: VercelRequest, res: VercelResponse) => {
   const { body } = req;
   console.log(body); 
   if (req.method === 'POST') {
-    writeToDatabase._writeToDatabase(body);
+    writeToDatabase.processRecords(body);
     return res.json({ message: "POST: Hello World!" });
   } else {
     return res.json({ message: "GET method not supported!" });
