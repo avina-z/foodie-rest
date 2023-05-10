@@ -11,7 +11,7 @@ export async function processRecords(jsonString) {
     if (error) {
       throw new Error(`Error reading JSON data: ${error}`);
     }
-
+    console.log(records);
     for (const record of records) {
       const { idmeserointerno, operacion, ...data } = record;
 
