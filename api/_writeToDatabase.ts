@@ -5,13 +5,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function processRecords(jsonString) {
   try {
-    
+    console.log("jsonString: " + jsonString);
     const { data: records, error } = JSON.parse(jsonString);
-
     if (error) {
       throw new Error(`Error reading JSON data: ${error}`);
     }
-    console.log(records);
+    console.log("records: " + records);
     for (const record of records) {
       const { idmeserointerno, operacion, ...data } = record;
 

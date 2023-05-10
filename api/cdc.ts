@@ -15,7 +15,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
   if (req.method === 'POST') {
     const buf = await buffer(req);
     const body = buf.toString('utf8');
-    //console.log(body);
+    console.log(body);
     let result = await processRecords(body);
     return res.json({ message: "POST: Success" });
   } else {
